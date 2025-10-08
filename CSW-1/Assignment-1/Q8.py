@@ -44,3 +44,36 @@ else:
     print("\n Password is invalid. Please fix the following issues:")
     for err in error_list:
         print(f"- {err}")
+
+#ORRRR------
+
+def password(s):
+  if(len(s)<8):
+    return False
+  if not any(s.isupper() for c in s):
+    return False
+  if not any(s.islower() for c in s):
+    return False
+  if not any(s.isdigit() for c in s):
+    return False
+  if not any(c in '!@#$%^&*()-+' for c in s):
+    return False
+  if not any(c.isspace() for c in s):
+    return False
+  return True
+
+s = input("Enter your password: ")
+if(password(s)):
+  print("Valid Password")
+else:
+  print("Invalid Password")
+
+
+
+
+
+
+
+
+
+
