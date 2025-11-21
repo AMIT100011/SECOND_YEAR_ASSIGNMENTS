@@ -1,39 +1,44 @@
 # q2_cli_calc.py
-print("Enter: op num1 num2 where op in {add, sub, mul, div}. Type 'exit' to quit.")
-while True:
-    line = input().strip()
+import sys
+
+print("Simple Command-Line Calculator")
+print("Usage: add 5 3   |   sub 10 4   |   mul 2 7   |   div 15 3   |   exit")
+
+for line in sys.stdin:
+    line = line.strip()
+    if not line:
+        continue
     if line.lower() == "exit":
         print("Program terminated.")
         break
 
     parts = line.split()
     if len(parts) != 3:
-        print("Format: op num1 num2")
+        print("Error: Please enter exactly 3 items: operation num1 num2")
         continue
 
-    op = parts[0].lower()
+    op, a_str, b_str = parts
+
+    if op not in ("add", "sub", "mul", "div"):
+        print("Error: Invalid operation. Use add, sub, mul, or div.")
+        continue
+
     try:
-        a = float(parts[1])
-        b = float(parts[2])
+        a = float(a_str)
+        b = float(b_str)
     except ValueError:
-        print("Error: invalid numbers.")
+        print("Error: Please enter valid numbers.")
         continue
 
     if op == "add":
-        result = a + b
+        print(f"Result: {a + b}")
     elif op == "sub":
-        result = a - b
+        print(f"Result: {a - b}")
     elif op == "mul":
-        result = a * b
+        print(f"Result: {a * b}")
     elif op == "div":
         if b == 0:
             print("Error: Division by zero is not allowed.")
-            continue
-        result = a / b
-    else:
-        print("Error: unknown operation.")
-        continue
-
-    if result == int(result):
-        result = int(result)
-    print("Result:", result)
+        else:
+            result = a / b
+            print(f"Result: {int(result) if result == int(result) else result}")
